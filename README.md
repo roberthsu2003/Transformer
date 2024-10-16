@@ -1,3 +1,11 @@
-# hugging-face1
-## 目前是範例檔
-使用HuggingFace建立語言模型
+# HugginFace TransFormers
+## 1. 基礎知識
+### 1.1 [**環境安裝**](./環境安裝
+)
+### 1.2 [**pipeline**](./pipeline/)
+### 1.3 [**tokenizer**](./tokenizer/)
+### 1.4 [**Model**](./model/)
+### 1.5 [**Datasets**](./datasets/)
+### 1.6 [**Evaluate**](./evaluate/)
+
+
