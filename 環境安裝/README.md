@@ -84,7 +84,8 @@
 - nltk
 - rouge
 
-## Question Answering的測試
+## 測試
+### Question Answering的測試
 
 ```python
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
@@ -101,7 +102,21 @@ QA_input = {'question': "百憂解可以治療什麼病症?",'context':content}
 print(qa(QA_input))
 ```
 
-## Classification的測試(sentiment-analysis)
+### Question Answering的測試
+
+```python
+import gradio as gr
+from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
+model = AutoModelForQuestionAnswering.from_pretrained('uer/roberta-base-chinese-extractive-qa')
+tokenizer = AutoTokenizer.from_pretrained('uer/roberta-base-chinese-extractive-qa')
+qa = pipeline('question-answering',model=model,tokenizer=tokenizer)
+demo = gr.Interface.from_pipeline(qa)
+demo.launch()
+```
+
+![](./images/pic2.png)
+
+### Classification的測試(sentiment-analysis)
 
 ![](./images/pic1.png)
 
