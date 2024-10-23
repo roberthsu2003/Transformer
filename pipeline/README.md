@@ -42,3 +42,4 @@ sentiment_pipeline = pipeline("sentiment-analysis")
 result = sentiment_pipeline("I love using Hugging Face Transformers!")
 print(result)  # Output might indicate positive sentiment
 ```
+
