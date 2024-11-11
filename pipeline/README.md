@@ -3,8 +3,11 @@
 ## pipeline [ipynb說明](./pipeline.ipynb)
 
 ### 什麼是pipeline
-Transformer pipeline 是 Hugging Face Transformers 函式庫所提供的高階抽象類別，其設計目的在於簡化使用預先訓練模型的流程的自然語言處理 (NLP) 任務。以下是其主要元件與功能的概述：
+Transformer pipeline 是 Hugging Face Transformers 函式庫所提供的高階抽象類別，其設計目的在於簡化使用預先訓練模型的流程的自然語言處理 (NLP) 任務。
 
+![](./images/pic1.png)
+
+#### 下是其主要元件與功能的概述：
 轉換器管道是一個物件，它封裝了模型載入、預處理和後處理的複雜性，讓使用者可以執行下列任務：
 1. Text Classification(sentiment analysis) - 內容分類 (例如情感分析)
 2. Name Entity Recognition - 命名實體辨識 (NER)
