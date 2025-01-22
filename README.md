@@ -9,11 +9,29 @@
 
 ## HuggingFace 免費資源
 - 支援繁體中文(triditional chinese)
-**text-embedding生成**
+### **1. text-embedding生成**
+**支援繁體中文**
+
 - intfloat/multilingual-e5-large
 
-**text-generation**
-- mistralai/Mistral-Nemo-Instruct-2407
+### **2. text-generation**
+**支援繁體中文**
+
+- mistralai/Mistral-Nemo-Instruct-2407 (serverless)
+
+### **3. automatic speech recognition**
+**僅支援英文**
+- facebook/wav2vec2-base-960h
+
+**支援多種語言(自動判斷)**
+- openai/whisper-large-v3-turbo (serverless)
+
+### **4. text-classification**
+- **multilingual-sentiments**
+- **支援中文**
+- lxyuan/distilbert-base-multilingual-cased-sentiments-student
+
+
 
 
 
