@@ -1,6 +1,8 @@
 ## 專門為繁體中文優化過的開源模型
 
-### [聯發科的Breeze-7B(hugging face)](https://huggingface.co/MediaTek-Research/Breeze-7B-Instruct-v1_0)
+### 聯發科的Breeze-7B(hugging face)
+
+- **網址**:https://huggingface.co/MediaTek-Research/Breeze-7B-Instruct-v1_0)
 
 #### 模型介紹
 
@@ -32,8 +34,8 @@ Breeze 則更適合繁體中文的專業應用，特別是在需要高效能和�
 
 Project TAME（TAiwan Mixture of Experts）是一個專為繁體中文及台灣產業需求設計的大型語言模型。該模型由多家領先企業與台灣大學資工系合作開發，旨在提升台灣在地化的AI應用能力。
 
-**GitHub** :https://github.com/MiuLab/Taiwan-LLM
-**模型聊天頁面**: https://www.twllm.com
+- **GitHub** :https://github.com/MiuLab/Taiwan-LLM
+- **模型聊天頁面**: https://www.twllm.com
 
 #### TAME模型特點
 - **參數量**：Project TAME擁有700億參數，專為繁體中文設計，能夠精準理解和生成繁體中文文本。
