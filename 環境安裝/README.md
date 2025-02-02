@@ -86,6 +86,7 @@
 
 ## 測試
 ### Question Answering的測試
+- 模型自動下載至(~/.cache)
 
 ```python
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
