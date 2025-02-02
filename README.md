@@ -8,8 +8,10 @@
 ### 1.6 [**Evaluate**](./evaluate/)
 
 ## [專門為繁體中文優化過的開源模型](./source_for_tw)
-
 ## [HuggingFace 免費資源](./source_hugging_face)
+
+## 2. 文字分類(Text Classification)
+
 
 
 
