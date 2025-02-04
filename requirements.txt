@@ -14,3 +14,4 @@ nltk
 rouge
 ipywidgets
 torch
+datasets
