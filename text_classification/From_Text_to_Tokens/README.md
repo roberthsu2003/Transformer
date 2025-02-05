@@ -49,4 +49,47 @@ categorical_df
 
 ![](./images/pic2.png)
 
+這種方法的問題在於它在名稱之間創造了一種虛構的順序，神經網路非常擅長學習關係類別的表格。
+因此，我們可以為每個類別建立一個新列，當類別為真時分配 1，否則分配 0。在 Pandas 中，這可以透過以下方式實現 get_dummies()函數如下：
+
+```python
+pd.get_dummies(categorical_df["Name"])
+```
+
+![](./images/pic3.png)
+
+**轉換input_ids成為張量**
+
+```
+import torch
+import torch.nn.functional as F
+
+input_ids = torch.tensor(input_ids)
+one_hot_encodings = F.one_hot(input_ids, num_classes=len(token2idx))
+one_hot_encodings.shape
+
+#==output==
+torch.Size([37, 19])
+有37個tokens,獨立的字元有19個
+```
+
+**以下為從字元轉換為張量**
+
+```
+print(f'token:{tokenized_text[0]}')
+print(f'Tensor index:{input_ids[0]}')
+print(f"One-hot:{one_hot_encodings[0]}")
+
+#==output==
+token:T
+Tensor index:4
+One-hot:tensor([0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+```
+
+
+
+
+
+
+
 
