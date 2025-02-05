@@ -1,4 +1,4 @@
-## 文本分類(Text Classification)
+# 文本分類(Text Classification)
 
 文本分類是自然語言中最常使用一種任務。它可以廣泛應用在應用程式中,例如將客戶的回覆資料做分類,或依據使用者使用的語言分類,找到對應的客服人員。
 
@@ -15,80 +15,36 @@
 
 ![](./images/pic1.png)
 
-### DataSet
-### 使用hugging face DataSet提供的emotion的[資料集](https://huggingface.co/datasets/dair-ai/emotion)
+## [1. 下載資料集](./The_Dataset)
 
-- 透過hugging facea網站介面了解資料集(適合的任務,筆數,欄位,支援的語言,大小)
-- 透過程式碼了解資料[Dataset說明書](https://huggingface.co/docs/datasets/index)
-
-#### 1. 從hugginface載入資料庫
-
-**檢查載入資訊**
-- 檢查dataset的資訊
-- 不會下載dataset
-
-```python
-from datasets import load_dataset_builder
-
-ds_builder = load_dataset_builder("emotion")
-
-#Inspect dataset description
-ds_builder.info.description
-```
+## [2. 將文字轉為Tokens](./From_Text_to_Tokens)
 
 
-```
-#Inspect dataset features
-ds_builder.info.features
 
-#==output===
-{'text': Value(dtype='string', id=None),
- 'label': ClassLabel(names=['sadness', 'joy', 'love', 'anger', 'fear', 'surprise'], id=None)}
- 
-#說明
-- 有text和label 2個欄位
-- text是字串
-- label->有6種label:sadness,joy,love,anger,fear,surprise
-```
 
-**載入資料**
-**實際下載資料**
-- 會自動儲存至(~/.cache/huggingface)
 
-```python
-from datasets import load_dataset
 
-emotions = load_dataset('emotion')
-emotions
 
-#==output==
 
-DatasetDict({
-    train: Dataset({
-        features: ['text', 'label'],
-        num_rows: 16000
-    })
-    validation: Dataset({
-        features: ['text', 'label'],
-        num_rows: 2000
-    })
-    test: Dataset({
-        features: ['text', 'label'],
-        num_rows: 2000
-    })
-})
 
-說明:
-資料被分割為3個部份
-train:有16000筆
-validation:有2000筆
-test:有2000筆
-```
 
-**取得切割資料**
 
-```python
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
