@@ -19,6 +19,8 @@
 
 ## [2. 將文字轉為Tokens](./From_Text_to_Tokens)
 
+## [3. 訓練文字分類](./Training_a_Text_Classifier)
+
 
 
 
