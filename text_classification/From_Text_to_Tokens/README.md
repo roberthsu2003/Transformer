@@ -183,10 +183,99 @@ tokenizer.model_input_names
 
 
 ## 分詞所有的Dataset
+- 使用DatasetDict的map()實體方法
 
 ```
+from datasets import load_dataset
+emotions = load_dataset('emotion')
+emotions
+
+#==output==
+DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 16000
+    })
+    validation: Dataset({
+        features: ['text', 'label'],
+        num_rows: 2000
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 2000
+    })
+})
+```
+
+**取出`train`的前2筆**
 
 ```
+emotions['train'][:2]
+
+#==output==
+{'text': ['i didnt feel humiliated',
+  'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake'],
+ 'label': [0, 0]}
+```
+
+**取出這2組的text欄位的詞字串**
+
+```
+emotions['train'][:2]['text']
+
+#==output==
+['i didnt feel humiliated',
+ 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake']
+```
+
+**一次分詞2筆text欄位**
+- padding=True,代表要對齊最長的一筆,多出的補上0
+- truncation=True,代表如果長度超過tokenizer的最大長度要被截去
+
+
+```
+def tokenize(batch):
+    return tokenizer(batch['text'], padding=True, truncation=True)
+
+tokenize(emotions["train"][:2])
+
+#==output==
+{'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [101, 1045, 2064, 2175, 2013, 3110, 2061, 20625, 2000, 2061, 9636, 17772, 2074, 2013, 2108, 2105, 2619, 2040, 14977, 1998, 2003, 8300, 102]], 'attention_mask': [[1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]}
+```
+
+![](./images/pic4.png)
+
+**使用map()一次分詞全部**
+
+- batch_size=None,一次全部當一個批次
+
+```python
+emotions_encoded = emotions.map(tokenize, batched=True, batch_size=None)
+emotions_encoded
+
+#==output==
+DatasetDict({
+    train: Dataset({
+        features: ['text', 'label', 'input_ids', 'attention_mask'],
+        num_rows: 16000
+    })
+    validation: Dataset({
+        features: ['text', 'label', 'input_ids', 'attention_mask'],
+        num_rows: 2000
+    })
+    test: Dataset({
+        features: ['text', 'label', 'input_ids', 'attention_mask'],
+        num_rows: 2000
+    })
+})
+```
+
+
+
+
+
+
+
 
 
 
