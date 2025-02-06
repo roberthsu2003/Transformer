@@ -26,8 +26,38 @@ DistilBERT 等模型經過預先訓練，可以預測文字序列中的遮罩字
 我們將使用 Transformers 中另一個方便的自動類，名為 AutoModel。讓我們使用此方法來載入DistilBERT checkpoint：
 
 ```python
+from transformers import AutoModel
+import torch
+
+model_ckpt = 'distilbert-base-uncased'
+device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
+model = AutoModel.from_pretrained(model_ckpt).to(device)
+```
+
+**提取最後的隱藏狀態(Extracting the last hidden states)**
+
+為了熱身，讓我們檢索單一字串的最後隱藏狀態。我們需要做的第一件事是對字串進行編碼，並將標記轉換為 PyTorch 張量。這可以透過向標記器提供 return_tensors="pt" 參數來實現，如下所示：
+
+```python
+from transformers import AutoTokenizer
+model_ckpt = 'distilbert-base-uncased'
+tokenizer = AutoTokenizer.from_pretrained(model_ckpt)
+```
 
 ```
+text = 'this is a test'
+inputs = tokenizer(text, return_tensors="pt")
+print(f"Input tensor shape:{inputs['input_ids'].size()}")
+
+#==output==
+Input tensor shape:torch.Size([1, 6])
+
+```
+
+
+
+
+
 
 
 
