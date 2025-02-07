@@ -139,7 +139,42 @@ y_valid = np.array(emotions_hidden['validation']['label'])
 X_train.shape, X_valid.shape
 ```
 
-未結束
+**尚未結束**
+
+### Fine-Tuning Transformer
+透過微調方法，我們不將隱藏狀態用作固定特徵,而是訓練它們(如下圖)
+
+![](./images/pic3.png)
+
+這需要分類頭是可微分的，這就是為什麼這種方法通常使用神經網路進行分類。訓練作為分類模型輸入的隱藏狀態，可以幫助我們避免處理可能不太適合分類任務的資料的問題。相反，初始隱藏狀態會在訓練過程中適應，以減少模型損失，從而提高其效能。
+
+**載入預訓練模型**
+
+我們首先需要一個預先訓練的 DistilBERT 模型，就像我們在基於特徵的方法中所使用的模型一樣。唯一的一點修改是我們使用 AutoModelForSequenceClassification 模型而不是 AutoModel。不同之處在於AutoModelForSequenceClassification 模型在
+預訓練模型輸出，可以使用基礎模型輕鬆進行訓練。我們只需要指定模型需要預測多少個標籤（在我們的例子中是六個），因為這決定了分類頭的輸出數量：
+
+```python
+from transformers import AutoModelForSequenceClassification
+import torch
+
+num_labels = 6
+model_ckpt = 'distilbert-base-uncased'
+device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
+model = AutoModelForSequenceClassification.from_pretrained(model_ckpt,num_labels=num_labels).to(device)
+```
+
+您將看到一條警告，提示模型的某些部分是隨機初始化的。這是正常的，因為分類主管尚未接受訓練。下一步是定義我們在微調過程中用來評估模型表現的指標。
+
+**定義績效指標**
+
+為了在訓練期間監控指標，我們需要為訓練器定義一個 compute_metrics() 函數。此函數接收一個 EvalPrediction 物件（它是一個命名的具有predictions和 label_ids 屬性的元組）並需要傳回一個將每個指標的名稱對應到其值的字典。對於我們的應用，我們將按如下方式計算 F1 分數和模型的準確率.[說明accuracy_score和f1_score](./score.md)
+
+```
+```
+
+
+
+
 
 
 
