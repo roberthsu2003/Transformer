@@ -170,7 +170,61 @@ model = AutoModelForSequenceClassification.from_pretrained(model_ckpt,num_labels
 為了在訓練期間監控指標，我們需要為訓練器定義一個 compute_metrics() 函數。此函數接收一個 EvalPrediction 物件（它是一個命名的具有predictions和 label_ids 屬性的元組）並需要傳回一個將每個指標的名稱對應到其值的字典。對於我們的應用，我們將按如下方式計算 F1 分數和模型的準確率.[說明accuracy_score和f1_score](./score.md)
 
 ```
+from sklearn.metrics import accuracy_score, f1_score
+
+def compute_metrics(pred):
+    labels = pred.label_ids
+    preds = pred.predictions.argmax(-1)
+    f1 = f1_score(labels, preds)
+    acc = accuracy_score(labels, preds)
+    return {"accuracy":acc, "f1":f1}
 ```
+
+資料集和指標準備好後，在定義 Trainer 類別之前，我們只需處理兩件最後的事情：
+
+1. 登入我們在 Hugging Face Hub 上的帳號。這將使我們能夠將經過微調的模型推送到 Hub 上的帳戶並與社群分享。
+2. 定義訓練運行的所有超參數。
+
+**訓練模型**
+
+如果您在 Jupyter 筆記本中執行此程式碼，則可以使用下列輔助函數登入 Hub：
+
+```
+from huggingface_hub import notebook_login
+notebook_login()
+```
+
+這將顯示一個小部件，您可以在其中輸入您的使用者名稱和密碼，或具有寫入權限的存取權杖。您可以在 Hub 文件中找到有關如何建立存取權杖的詳細資訊。如果您在終端機中工作，則可以透過執行以下命令登入：
+
+```
+$ huggingface-cli login
+```
+
+為了定義訓練參數，我們使用 TrainingArguments 類別。這個類別儲存了大量的資訊並讓你可以對訓練和評估進行細粒度的控制。要指定的最重要的參數是 output_dir，它是儲存訓練的所有工件的地方。以下是 TrainingArguments 的範例
+
+- [TrainingArguments所有參數的說明](./training_arguments.md)
+
+```
+from transformers import Trainer, TrainingArguments
+
+batch_size = 64
+logging_steps = len(emotions_encoded['train']) //batch_size
+model_name = f'{model_ckpt}-finetuned-emotion'
+traingin_args = TrainingArguments(
+    output_dir=model_name,
+    num_train_epochs=2,
+    learning_rate=2e-5,
+    per_device_train_batch_size=batch_size,
+    per_device_eval_batch_size=batch_size,
+    weight_decay=0.01,
+    evaluation_strategy="epoch",
+    disable_tqdm=False,
+    logging_steps=logging_steps,
+    push_to_hub=True,
+    log_level="error"
+)
+```
+
 
 
 
