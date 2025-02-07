@@ -175,9 +175,10 @@ from sklearn.metrics import accuracy_score, f1_score
 def compute_metrics(pred):
     labels = pred.label_ids
     preds = pred.predictions.argmax(-1)
-    f1 = f1_score(labels, preds)
+    f1 = f1_score(labels, preds, average="weighted")
     acc = accuracy_score(labels, preds)
     return {"accuracy":acc, "f1":f1}
+
 ```
 
 資料集和指標準備好後，在定義 Trainer 類別之前，我們只需處理兩件最後的事情：
@@ -224,6 +225,93 @@ traingin_args = TrainingArguments(
     log_level="error"
 )
 ```
+
+在這裡，我們也設定了批次大小、學習率和 epoch 次數，並指定在訓練執行結束時載入最佳模型。
+
+```
+from transformers import AutoModelForSequenceClassification
+import torch
+from sklearn.metrics import accuracy_score, f1_score
+from datasets import load_dataset
+from transformers import AutoTokenizer
+from transformers import Trainer, TrainingArguments
+
+num_labels = 6
+model_ckpt = 'distilbert-base-uncased'
+device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
+model = AutoModelForSequenceClassification.from_pretrained(model_ckpt,num_labels=num_labels).to(device)
+
+emotions = load_dataset("emotion")
+model_ckpt = "distilbert-base-uncased"
+tokenizer = AutoTokenizer.from_pretrained(model_ckpt)
+
+def tokenize(batch):
+    return tokenizer(batch['text'], padding=True, truncation=True)
+emotions_encoded = emotions.map(tokenize, batched=True, batch_size=None)
+
+
+def compute_metrics(pred):
+    labels = pred.label_ids
+    preds = pred.predictions.argmax(-1)
+    f1 = f1_score(labels, preds, average="weighted")
+    acc = accuracy_score(labels, preds)
+    return {"accuracy":acc, "f1":f1}
+    
+
+
+batch_size = 64
+logging_steps = len(emotions_encoded['train']) // batch_size
+model_name = f'{model_ckpt}-finetuned-emotion'
+traingin_args = TrainingArguments(
+    output_dir=model_name,
+    num_train_epochs=2,
+    learning_rate=2e-5,
+    per_device_train_batch_size=batch_size,
+    per_device_eval_batch_size=batch_size,
+    weight_decay=0.01,
+    evaluation_strategy="epoch",
+    disable_tqdm=False,
+    logging_steps=logging_steps,
+    push_to_hub=True,
+    log_level="error",
+    report_to="none"
+    
+)
+
+from transformers import Trainer
+trainer = Trainer(model=model,
+                  args=traingin_args,
+                  compute_metrics=compute_metrics,
+                  train_dataset=emotions_encoded["train"],
+                  eval_dataset=emotions_encoded["validation"],
+                  tokenizer = tokenizer
+                  )
+trainer.train()
+```
+
+
+**從huggingface下載訓練模型**
+
+```
+from transformers import pipeline
+import pandas as pd
+import matplotlib.pyplot as plt
+#預設在huggingface的模型是private,所以要先login
+model_id = "roberthsu2003/distilbert-base-uncased-finetuned-emotion"
+classifier = pipeline("text-classification",model=model_id)
+
+custom_tweet = "I saw a movie today and it was really anger."
+preds = classifier(custom_tweet, return_all_scores=True)
+
+preds_df = pd.DataFrame(preds[0])
+plt.bar(['sadness', 'joy', 'love', 'anger', 'fear', 'surprise'], 100 * preds_df["score"], color='C0')
+plt.title(f'"{custom_tweet}"')
+plt.ylabel("Class probability (%)")
+plt.show()
+```
+
+![](./images/pic4.png)
+
 
 
 
