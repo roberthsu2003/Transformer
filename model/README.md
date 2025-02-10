@@ -1,4 +1,6 @@
 ## Model簡介
+- 參考文章
+> [Transformer — Attention Is All You Need](https://medium.com/ching-i/transformer-attention-is-all-you-need-c7967f38af14)
 ### Transformer的重要架構
 1. The encoder-decoder framework
 2. Attention mechanisms
@@ -39,6 +41,113 @@
 #### NLP中的遷移學習
 
 如今，電腦視覺領域的常見做法是使用遷移學習在一項任務上訓練 ResNet 等卷積神經網絡，然後使其適應或微調新任務。這使得網路能夠利用從原始任務中學到的知識。從架構上講，這涉及將模型分割成一個body和一個head，其中head是一個特定於任務的網路。在訓練期間，本體的權重會學習來源領域的廣泛特徵，這些權重會用來初始化新任務的新模型。
+
+### HuggingFace中的Model Head
+
+## Hugging Face 中的 Model Head 是什麼？
+
+在 Hugging Face 的 `transformers` 庫中，**model head** 指的是負責特定任務（如分類、生成或回歸）的模型頂層部分。它通常是 Transformer 主體（backbone）之上的附加層，負責將 Transformer 提取的特徵轉換為具體的任務輸出。
+
+---
+
+## **Model Head 的概念**
+
+Transformer 模型的架構可以拆分為兩個部分：
+
+1. **Backbone（主體）**：
+   - 例如 `BERT`, `GPT`, `T5` 這類 Transformer 模型的核心部分，負責語言理解或生成。
+   - 它們的作用是學習語言的特徵表示（embeddings）。
+   
+2. **Head（頂層）**：
+   - 根據任務需求，附加不同類型的 head，例如：
+     - **分類（Classification Head）**：加上一個 `Linear` 層來進行文本分類。
+     - **序列標註（Token Classification Head）**：用於命名實體識別（NER）。
+     - **回歸（Regression Head）**：用來預測連續值，如情感分析中的分數。
+     - **語言建模（LM Head）**：用於生成文本，如 GPT 模型中的 `LMHeadModel`。
+
+---
+
+## **常見的 Model Heads**
+
+在 `transformers` 庫中，根據不同的 NLP 任務，Hugging Face 提供了一些內建的 model head：
+
+| 任務 | Hugging Face 模型 |
+|------|------------------|
+| **文本分類**（Text Classification） | `BertForSequenceClassification`, `RobertaForSequenceClassification` |
+| **序列標註**（Token Classification, NER） | `BertForTokenClassification`, `DistilBertForTokenClassification` |
+| **問答**（Question Answering） | `BertForQuestionAnswering`, `AlbertForQuestionAnswering` |
+| **文本生成**（Text Generation） | `GPT2LMHeadModel`, `T5ForConditionalGeneration` |
+| **翻譯**（Translation） | `MarianMTModel`, `T5ForConditionalGeneration` |
+| **摘要**（Summarization） | `BartForConditionalGeneration`, `T5ForConditionalGeneration` |
+
+---
+
+## **Model Head 的運作方式**
+
+這些 model head 本質上是在 Transformer backbone 之上加了一些額外的神經網絡層。例如：
+
+### 1. **分類任務 (`BertForSequenceClassification`)**
+- 在 BERT 的輸出 `[CLS]` token 上加一個 `Linear` 層，並使用 `Softmax` 來進行分類。
+
+```python
+from transformers import BertForSequenceClassification
+
+model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)  # 二分類
+```
+
+### 2. **語言模型 (`GPT2LMHeadModel`)**
+- GPT-2 生成模型的 `head` 是一個線性層，將隱藏狀態映射到詞彙表，然後用 `Softmax` 來產生下一個 token。
+
+```python
+from transformers import GPT2LMHeadModel
+
+model = GPT2LMHeadModel.from_pretrained("gpt2")
+```
+
+### 3. **問答 (`BertForQuestionAnswering`)**
+- 這個 head 會預測答案在文本中的起始位置和結束位置。
+
+```python
+from transformers import BertForQuestionAnswering
+
+model = BertForQuestionAnswering.from_pretrained("bert-large-uncased-whole-word-masking-finetuned-squad")
+```
+
+---
+
+## **如何自定義 Model Head**
+
+你可以自定義一個 model head，以下是一個簡單的例子：
+
+```python
+import torch
+from torch import nn
+from transformers import BertModel
+
+class CustomBERTClassifier(nn.Module):
+    def __init__(self, model_name="bert-base-uncased", num_classes=2):
+        super(CustomBERTClassifier, self).__init__()
+        self.bert = BertModel.from_pretrained(model_name)
+        self.classifier = nn.Linear(self.bert.config.hidden_size, num_classes)
+
+    def forward(self, input_ids, attention_mask):
+        outputs = self.bert(input_ids, attention_mask=attention_mask)
+        cls_output = outputs.last_hidden_state[:, 0, :]  # 取 [CLS] token
+        logits = self.classifier(cls_output)
+        return logits
+```
+
+這樣，你就可以根據需求設計自己的 head 來做不同的 NLP 任務。
+
+---
+
+## **結論**
+
+Hugging Face 的 `transformers` 提供了多種 `model heads`，適用於不同的 NLP 任務。這些 `heads` 只是 Transformer backbone 之上的一層或多層神經網絡，它們能夠將通用的語言表徵轉換為具體任務的輸出。如果你有更特殊的需求，也可以自定義自己的 `model head`。
+
+如果你需要針對特定應用調整 `model head`，可以進一步使用 **Fine-tuning** 來適配特定數據集。🚀
+
+
 
 
 
