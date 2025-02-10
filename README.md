@@ -4,7 +4,8 @@
 ### 1.2 [**pipeline**](./pipeline/)
 ### 1.3 [**tokenizer**](./tokenizer/)
 ### 1.4 [**Model說明**](./model/)
-- [**Model使用範例**](./model/example.md)
+- [**Model使用**](./model/example.md)
+- [**Model預訓練**](./model/pretrain.md)
 ### 1.5 [**Datasets**](./datasets/)
 ### 1.6 [**Evaluate**](./evaluate/)
 

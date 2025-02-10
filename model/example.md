@@ -109,6 +109,53 @@ torch.Size([1, 19, 768])
 代表1個句子,有19個token,每個token有768張量
 ```
 
+## 使用model head任務是(文本分類)的模型
+
+```python
+from transformers import AutoModelForSequenceClassification
+clz_model = AutoModelForSequenceClassification.from_pretrained("google-bert/bert-base-chinese")
+clz_model
+
+#===output===
+有警告訊息,提示這個模型是沒有文本訓練的模型,必需先預訓練才可以使用
+```
+
+```python
+tokenizer = AutoTokenizer.from_pretrained("google-bert/bert-base-chinese") #output_attentions的是由配置查到的
+inputs = tokenizer(sen, return_tensors="pt") #使用pytorch的模型
+model(**inputs)
+clz_model(**inputs)
+
+#==output==
+SequenceClassifierOutput(loss=None, logits=tensor([[ 0.3986, -0.8550]], grad_fn=<AddmmBackward0>), hidden_states=None, attentions=None)
+
+輸出的結果和沒有帶model head的不一樣了(有logits了)
+```
+
+**輸出的logits是可以更改的**
+
+```python
+from transformers import BertForSequenceClassification   #因為模型是BertForSequencelClassification,可以進入這個class內,查設定值,有一個num_labels
+```
+
+**輸出的logits設為10**
+
+```python
+from transformers import AutoModelForSequenceClassification
+clz_model = AutoModelForSequenceClassification.from_pretrained("google-bert/bert-base-chinese",num_labels=10)
+tokenizer = AutoTokenizer.from_pretrained("google-bert/bert-base-chinese") #output_attentions的是由配置查到的
+inputs = tokenizer(sen, return_tensors="pt") #使用pytorch的模型
+model(**inputs)
+clz_model(**inputs)
+
+#===output==
+logits輸出10個了
+```
+
+
+
+
+
 
 
 
