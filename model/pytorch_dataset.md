@@ -1,3 +1,5 @@
+以下是如何自定義一個 PyTorch Dataset 的簡單範例，並以 Markdown 格式輸出。
+
 # 自定義 PyTorch Dataset 範例
 
 在 PyTorch 中，可以透過繼承 `torch.utils.data.Dataset` 來建立自定義的 Dataset。  
@@ -8,9 +10,11 @@
 ```python
 import torch
 from torch.utils.data import Dataset
+```
+
 
 2. 自訂 Dataset 類別
-
+```
 class CustomDataset(Dataset):
     def __init__(self, data, labels):
         """
@@ -34,9 +38,11 @@ class CustomDataset(Dataset):
         x = torch.tensor(self.data[index], dtype=torch.float32)
         y = torch.tensor(self.labels[index], dtype=torch.long)
         return x, y
+```
 
 3. 測試自定義 Dataset
 
+```
 # 假設有一些簡單的數據
 data = [[1, 2], [3, 4], [5, 6], [7, 8]]
 labels = [0, 1, 0, 1]
@@ -49,9 +55,11 @@ print(f"Dataset 大小: {len(dataset)}")
 for i in range(len(dataset)):
     x, y = dataset[i]
     print(f"索引 {i}: x={x}, y={y}")
+```
 
 4. 與 DataLoader 搭配使用
 
+```
 from torch.utils.data import DataLoader
 
 # 建立 DataLoader
@@ -62,6 +70,7 @@ for batch_idx, (x_batch, y_batch) in enumerate(dataloader):
     print(f"Batch {batch_idx}:")
     print(f"x_batch: {x_batch}")
     print(f"y_batch: {y_batch}")
+```
 
 這段程式碼示範了如何：
 1. **定義一個自訂 Dataset**
