@@ -1,5 +1,3 @@
-以下是如何自定義一個 PyTorch Dataset 的簡單範例，並以 Markdown 格式輸出。
-
 # 自定義 PyTorch Dataset 範例
 
 在 PyTorch 中，可以透過繼承 `torch.utils.data.Dataset` 來建立自定義的 Dataset。  
