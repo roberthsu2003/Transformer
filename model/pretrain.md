@@ -123,7 +123,119 @@ next(enumerate(trainloader))[1]
 
 - [Adam優化器說明](./adam.md)
 
+```python
+from torch.optim import Adam
+model = AutoModelForSequenceClassification.from_pretrained('google-bert/bert-base-chinese')
+if torch.cuda.is_available():
+    model = model.cuda()
+optimizer = Adam(model.parameters(), lr=2e-5)
 ```
+
+## 訓練和驗証
+
 ```
+與反向傳播 (backward()) 的關係
+
+zero_grad() 和 backward() 方法在模型的訓練過程中是緊密配合使用的：
+
+- zero_grad() 負責清空之前的梯度。 它確保在計算新梯度之前，梯度緩衝區是乾淨的。
+- backward() 負責計算當前批次的梯度，並將這些梯度累積到模型參數的 .grad 屬性中。 它計算出模型參數應該如何調整才能減少損失。
+- step() 負責使用當前累積的梯度來更新模型參數。 優化器 (例如 Adam) 根據 backward() 計算出的梯度，以及優化器自身的算法 (例如 Adam 的自適應學習率機制)，來決定如何調整模型參數。
+```
+
+```
+def evaluate():
+    model.eval()
+    acc_num = 0
+    with torch.inference_mode():
+       for batch in validloader:
+            if torch.cuda.is_available():
+                batch = {k: v.cuda() for k, v in batch.items()} 
+            output = model(**batch)
+            pred = torch.argmax(output.logits, dim=-1)
+            acc_num += (pred.long() == batch["labels"].long()).float().sum()
+    return acc_num / len(validset)
+
+
+def train(epoch=3, log_step=100):
+    global_step = 0
+    for ep in range(epoch):
+        model.train()
+        for batch in trainloader:
+            if torch.cuda.is_available():
+                batch = {k: v.cuda() for k, v in batch.items()}        
+            optimizer.zero_grad() #模型參數的梯度歸零
+            output = model(**batch)
+            output.loss.backward() #計算損失梯度
+            optimizer.step() #更新模型參數
+            if global_step % log_step == 0:
+                print(f'ep:{ep}, global_step:{global_step},loss:{output.loss.item()}')
+            global_step += 1
+        acc = evaluate()
+        print(f"ep:{ep}, acc:{acc}")
+train()
+```
+
+## 儲存model和tokenizer至本機資料夾
+
+```python
+model.save_pretrained('./saved_model')
+tokenizer.save_pretrained('./saved_model')
+```
+
+## 由本機端載入,並預測
+
+```
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import torch
+id2_label = {0:"差評!", 1:"好評!"}
+model = AutoModelForSequenceClassification.from_pretrained('./saved_model')
+tokenizer = AutoTokenizer.from_pretrained('./saved_model')
+sen="服務人員臉色不好看"
+model.eval()
+with torch.inference_mode():
+    inputs = tokenizer(sen,return_tensors='pt')
+    logits = model(**inputs).logits
+    pred = torch.argmax(logits,dim=-1)
+    print(f"輸入:{sen}\n模型預測結果:{id2_label.get(pred.item())}")
+
+#==output==
+輸入:服務人員臉色不好看
+模型預測結果:差評!
+```
+
+## 上傳model和tokenizer至huggingface
+
+```python
+from huggingface_hub import login, HfApi
+login()
+```
+
+```python
+repo_id = "roberthsu2003/save_model"
+model.push_to_hub(repo_id)
+tokenizer.push_to_hub(repo_id)
+```
+
+## 由huggingface下載至本地端預測
+
+```python
+# Use a pipeline as a high-level helper
+from transformers import pipeline
+id2str = {'LABEL_0':"差評",'LABEL_1':"好評"}
+pipe = pipeline("text-classification", model="roberthsu2003/save_model")
+sen="服務人員很熱心"
+output = pipe(sen)
+key = output[0]['label']
+score_str = id2str.get(key)
+score = output[0]['score']
+print(f"{score_str},{score}")
+
+#==output==
+Device set to use cpu
+好評,0.9752063751220703
+```
+
+
 
 
