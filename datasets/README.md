@@ -4,11 +4,12 @@
 ## [分析資料_圖表化](./analyze_data.md)
 ## [使用pytorch的Dataset](./使用pytorch的dataset.md)
 
+## [DataSets一般操作](./dataset一般操作.md)
+- 下載DataSets
+- 查看DataSets
+- 資料DataSets
+- DataSets選取和過濾
 
-## DataSets的下載
-## 查看DataSets
-## 資料DataSets
-## DataSets選取和過濾
 ## DataSets映射
 ## 儲存DataSets和本地載入DataSets
 ## 直接載入文件作為DataSets
