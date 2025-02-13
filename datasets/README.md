@@ -1,6 +1,7 @@
 # Datasets
 - [提供簡體中文訓練集](https://github.com/SophonPlus/ChineseNlpCorpus)
-- 
+
+## [分析資料_圖表化](./analyze_data.md)
 ## [使用pytorch的Dataset](./使用pytorch的dataset.md)
 
 
