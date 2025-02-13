@@ -39,7 +39,7 @@ len(data)
 - 實作__len__
 - 實作__getitem__,傳出tuple資料
 
-```
+```python
 from torch.utils.data import Dataset
 
 class HotelDataSet(Dataset):
@@ -58,4 +58,22 @@ hotelDataSet = HotelDataSet()
 hotelDataSet[0]
 
 #==output==
+('距離川沙公路較近,但是公交指示不對,如果是"蔡陸線"的話,會非常麻煩.建議用別的路線.房間較為簡單.', np.int64(1))
+```
+
+### 步驟3-分組(切割)Dataset,成為trainset和validset2組
+- random_split() - 切割和重新隨機排序
+- 傳出Subset類別
+
+```python
+from torch.utils.data import random_split
+
+trainset, validset= random_split(hotelDataSet,lengths=[0.9,0.1])
+trainset[0], len(trainset), len(validset)
+
+#==output==
+(('因為公司的報銷制度嚴格,所以我在酒店結帳的時候讓前臺在列印出來的明細單上加蓋酒店的章(大家說這個要求過分嗎),但是前臺小姐以各種理由拒不蓋章,試問如果出差回去不能報銷費用的話,這樣的酒店誰還敢住?如果不是急著趕飛機的話,一定要找酒店要個說法!建議報銷制度嚴格的朋友不要考慮這個酒店了.',
+  np.int64(0)),
+ 6989,
+ 776)
 ```
