@@ -1,5 +1,5 @@
 # Datasets
-- [提供簡體中文訓練集](https://github.com/SophonPlus/ChineseNlpCorpus)
+
 
 ## [分析資料_圖表化](./analyze_data.md)
 ## [使用pytorch的Dataset](./使用pytorch的dataset.md)
@@ -7,7 +7,7 @@
 ## [DataSets一般操作](./dataset一般操作.md)
 - 下載DataSets
 - 查看DataSets
-- 資料DataSets
+- 分割DataSets
 - DataSets選取和過濾
 
 ## DataSets映射
@@ -17,3 +17,13 @@
 ## pandas,list資料轉為DataSets
 ## Dataset with DataCollactor
 ## 實作
+
+-[提供繁體中文訓練集_AWeirdDev](https://huggingface.co/AWeirdDev)
+
+[提供繁體中文訓練集_wikipedia-zhtw](https://huggingface.co/datasets/erhwenkuo/wikipedia-zhtw)
+
+-[提供繁體中文訓練集_wikinews-zhtw](https://huggingface.co/datasets/erhwenkuo/wikinews-zhtw)
+
+- [提供繁體中文訓練集_使用search](https://huggingface.co/datasets?search=taiwan)
+
+- [提供簡體中文訓練集SophonPlus](https://github.com/SophonPlus/ChineseNlpCorpus)
