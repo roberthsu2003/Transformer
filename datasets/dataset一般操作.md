@@ -209,3 +209,31 @@ DatasetDict({
 ```
 
 ## DataSets選取和過濾
+
+- 選取為選取的內容成為一個新的DataSet
+
+**選取0,1成為新的DataSet**
+
+```python
+dataset.select([0,1])
+
+#==output==
+Dataset({
+    features: ['image', 'title', 'descriotion', 'cooking_time', 'author', 'url', 'servings', 'ingredients', 'steps'],
+    num_rows: 2
+})
+```
+
+
+**過濾(傳回全新的Dataset)**
+
+```python
+dataset.filter(lambda ownset: "古早味" in ownset['title'])
+
+#==output==
+Dataset({
+    features: ['image', 'title', 'descriotion', 'cooking_time', 'author', 'url', 'servings', 'ingredients', 'steps'],
+    num_rows: 12
+})
+```
+
