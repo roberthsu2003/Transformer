@@ -10,7 +10,8 @@
 - 分割DataSets
 - DataSets選取和過濾
 
-## DataSets映射
+## DataSets分類和映射(./dataset映射.md)
+
 ## 儲存DataSets和本地載入DataSets
 ## 直接載入文件作為DataSets
 ## 載入資料夾內全部文件作為DataSets
@@ -23,6 +24,8 @@
 [提供繁體中文訓練集_wikipedia-zhtw](https://huggingface.co/datasets/erhwenkuo/wikipedia-zhtw)
 
 -[提供繁體中文訓練集_wikinews-zhtw](https://huggingface.co/datasets/erhwenkuo/wikinews-zhtw)
+
+-[提供繁體中文訓練集_lchakkei](https://huggingface.co/datasets/lchakkei/OpenOrca-Traditional-Chinese)-適合question-answer
 
 - [提供繁體中文訓練集_使用search](https://huggingface.co/datasets?search=taiwan)
 
