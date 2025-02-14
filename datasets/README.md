@@ -10,9 +10,10 @@
 - 分割DataSets
 - DataSets選取和過濾
 
-## DataSets分類和映射(./dataset映射.md)
+## [DataSets分類和映射](./dataset映射.md)
 
-## 儲存DataSets和本地載入DataSets
+## [文件載入Dataset](./文件載入Dataset.md)
+
 ## 直接載入文件作為DataSets
 ## 載入資料夾內全部文件作為DataSets
 ## pandas,list資料轉為DataSets
