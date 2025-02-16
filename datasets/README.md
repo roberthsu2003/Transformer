@@ -12,12 +12,11 @@
 
 ## [DataSets分類和映射](./dataset映射.md)
 
-## [文件載入Dataset](./文件載入Dataset.md)
-
-## 直接載入文件作為DataSets
-## 載入資料夾內全部文件作為DataSets
-## pandas,list資料轉為DataSets
-## Dataset with DataCollactor
+## [其它格式載入Dataset](./文件載入Dataset.md)
+- 直接載入文件作為DataSets
+- 載入資料夾內全部文件作為DataSets
+- pandas,list資料轉為DataSets
+## Dataset with DataCollator
 ## 實作
 
 -[提供繁體中文訓練集_AWeirdDev](https://huggingface.co/AWeirdDev)
