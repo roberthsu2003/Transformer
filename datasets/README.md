@@ -19,13 +19,13 @@
 ## Dataset with DataCollator
 ## 實作
 
--[提供繁體中文訓練集_AWeirdDev](https://huggingface.co/AWeirdDev)
+- [提供繁體中文訓練集_AWeirdDev](https://huggingface.co/AWeirdDev)
 
-[提供繁體中文訓練集_wikipedia-zhtw](https://huggingface.co/datasets/erhwenkuo/wikipedia-zhtw)
+- [提供繁體中文訓練集_wikipedia-zhtw](https://huggingface.co/datasets/erhwenkuo/wikipedia-zhtw)
 
--[提供繁體中文訓練集_wikinews-zhtw](https://huggingface.co/datasets/erhwenkuo/wikinews-zhtw)
+- [提供繁體中文訓練集_wikinews-zhtw](https://huggingface.co/datasets/erhwenkuo/wikinews-zhtw)
 
--[提供繁體中文訓練集_lchakkei](https://huggingface.co/datasets/lchakkei/OpenOrca-Traditional-Chinese)-適合question-answer
+- [提供繁體中文訓練集_lchakkei](https://huggingface.co/datasets/lchakkei/OpenOrca-Traditional-Chinese)-適合question-answer
 
 - [提供繁體中文訓練集_使用search](https://huggingface.co/datasets?search=taiwan)
 
