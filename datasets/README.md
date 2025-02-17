@@ -17,7 +17,8 @@
 - 載入資料夾內全部文件作為DataSets
 - pandas,list資料轉為DataSets
 ## [Dataset with DataCollator](./DataCollator.md)
-## 實作
+
+## [實作-使用Huggingface Dataset,取代pytorch Dataset]()
 
 - [提供繁體中文訓練集_AWeirdDev](https://huggingface.co/AWeirdDev)
 
