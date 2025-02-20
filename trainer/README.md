@@ -244,7 +244,7 @@ trainer.train()
 trainer.evaluate()
 
 #==output==
-使用第2趟的模型,因為f1是最低的
+使用第2趟的模型,因為f1是最高的
 
 {'eval_loss': 0.21406234800815582,
  'eval_accuracy': 0.9163449163449163,
