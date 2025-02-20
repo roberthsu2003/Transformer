@@ -125,7 +125,8 @@ def eval_metric(eval_predict):
 #建立TrainingArguments
 from transformers import TrainingArguments,Trainer
 train_args = TrainingArguments(
-  output_dir='./checkpoints'  
+  output_dir='./checkpoints',
+  report_to="none"  # Disable W&B logging,在colab訓練時,要關閉  
 )
 #目前的TrainingArguments有預設值,可以直接使用
 train_args
@@ -148,4 +149,112 @@ trainer = Trainer(
 #模型訓練
 trainer.train()
 ```
+
+**colab訓練時間**
+
+![](./images/pic1.png)
+
+```python
+#模型評估
+trainer.evaluate()
+
+#==output==
+{'eval_loss': 0.4363088309764862,
+ 'eval_accuracy': 0.888030888030888,
+ 'eval_f1': 0.9176915799432356,
+ 'eval_runtime': 5.7563,
+ 'eval_samples_per_second': 134.981,
+ 'eval_steps_per_second': 17.025,
+ 'epoch': 3.0}
+```
+
+
+
+### 後半部-TrainingArguments,自已設定參數
+
+```python
+#建立TrainingArguments,多加一些參數
+from transformers import TrainingArguments,Trainer
+train_args = TrainingArguments(
+  output_dir='./checkpoints',
+  report_to="none",  # Disable W&B logging,在colab訓練時,要關閉
+  per_device_train_batch_size=64, #訓練時每個gpu的batch size
+  per_device_eval_batch_size=128, #評估時每個gpu的batch size
+  num_train_epochs=1, #訓練的epochs,預設是3
+  logging_steps=100, #每100個batch log一次,預設是500
+  eval_strategy="epoch", #評估策略,每一趟評估1次,預設是no
+  save_strategy="epoch", #儲存策略,每一趟儲存1次,預設是no
+  )
+#目前的TrainingArguments有預設值,可以直接使用
+
+
+trainer = Trainer(
+    model=model,
+    args=train_args,
+    train_dataset=tokenized_datasets['train'],
+    eval_dataset=tokenized_datasets['test'],
+    data_collator=data_collator,
+    compute_metrics=eval_metric
+)
+trainer.train()
+
+```
+
+![](./images/pic2.png)
+
+### 後半部-TrainingArguments,自已設定參數
+
+```python
+#建立TrainingArguments,多加一些參數
+from transformers import TrainingArguments,Trainer
+train_args = TrainingArguments(
+  output_dir='./checkpoints',
+  report_to="none",  # Disable W&B logging,在colab訓練時,要關閉
+  per_device_train_batch_size=64, #訓練時每個gpu的batch size
+  per_device_eval_batch_size=128, #評估時每個gpu的batch size
+  num_train_epochs=2, #訓練的epochs,預設是3
+  logging_steps=100, #每100個batch log一次,預設是500
+  eval_strategy="epoch", #評估策略,每一趟評估1次,預設是no
+  save_strategy="epoch", #儲存策略,每一趟儲存1次,預設是no
+  learning_rate=2e-5, #學習率,預設是5e-5
+  weight_decay=0.01, #權重衰減,預設是0.01
+  metric_for_best_model="f1", #最佳模型的指標,預設是eval_loss
+  greater_is_better=True, #指標是否越大越好,預設是False
+  load_best_model_at_end=True, #訓練完後,是否載入最佳模型,預設是False
+  )
+#目前的TrainingArguments有預設值,可以直接使用
+
+
+trainer = Trainer(
+    model=model,
+    args=train_args,
+    train_dataset=tokenized_datasets['train'],
+    eval_dataset=tokenized_datasets['test'],
+    data_collator=data_collator,
+    compute_metrics=eval_metric
+)
+trainer.train()
+
+```
+
+![](./images/pic3.png)
+
+```python
+#模型評估
+trainer.evaluate()
+
+#==output==
+使用第2趟的模型,因為f1是最低的
+
+{'eval_loss': 0.21406234800815582,
+ 'eval_accuracy': 0.9163449163449163,
+ 'eval_f1': 0.9393090569561158,
+ 'eval_runtime': 5.0575,
+ 'eval_samples_per_second': 153.633,
+ 'eval_steps_per_second': 1.384,
+ 'epoch': 2.0}
+```
+
+
+
 
