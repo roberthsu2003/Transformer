@@ -286,7 +286,6 @@ sen1="服務人員都不親切"
 print(sen1,id2_label[pipe(sen1)[0]['label']])
 
 #==output==
-Device set to use cpu
 服務人員都很親切 正評
 服務人員都不親切 負評
 ```
