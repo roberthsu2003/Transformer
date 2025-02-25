@@ -12,8 +12,7 @@
 
 ## [專門為繁體中文優化過的開源模型](./source_for_tw)
 ## [HuggingFace 免費資源](./source_hugging_face)
-## [預訓練模型的一些基礎知識](./預訓練模型的一些基礎知識)
-
+## [預訓練模型的介紹](./預訓練模型的一些基礎知識)
 ## 2. [文本分類(Text Classification)](./text_classification)
 
 
