@@ -9,6 +9,7 @@
 - [**Model 模型預訓練**](./model/pretrain.md)
 ### 1.5 [Datasets資料集](./datasets/)
 ### 1.6 [Evaluate評估](./evaluate/)
+- [自訂評估function的說明](./evaluate/自訂評估function的說明.md)
 ### 1.7 [trainer訓練器](./trainer/)
 ### 1.8 [動態調整訓練時記憶體使用](./動態調整訓練時記憶體使用)
 
