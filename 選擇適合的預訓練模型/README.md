@@ -1,6 +1,6 @@
 Transformer 主要有三種類型，每種架構適合不同的任務：
 
-1️⃣ E**ncoder-only (僅編碼器架構)
+1️⃣ Encoder-only (僅編碼器架構)
 
 • **代表模型**：BERT、RoBERTa、ALBERT
 
@@ -22,7 +22,7 @@ Transformer 主要有三種類型，每種架構適合不同的任務：
 
 • 命名實體識別（NER）
 
-2️⃣ D**ecoder-only (僅解碼器架構)
+2️⃣ Decoder-only (僅解碼器架構)
 
 • **代表模型**：GPT（GPT-2、GPT-3、GPT-4）、LLaMA、ChatGPT
 
@@ -44,7 +44,7 @@ Transformer 主要有三種類型，每種架構適合不同的任務：
 
 • 程式碼補全（例如：GitHub Copilot）
 
-3️⃣ E**ncoder-Decoder (編碼器-解碼器架構)
+3️⃣ Encoder-Decoder (編碼器-解碼器架構)
 
 • **代表模型**：T5、BART、mT5、MarianMT
 
@@ -84,14 +84,14 @@ Transformer 主要有三種類型，每種架構適合不同的任務：
 
 這樣的分類有助於選擇適合的 Transformer 模型來解決不同的 NLP 任務！ 😊
 
-#  這3種都可以利用Transformer 來fine tune嗎?
+#  3種都可以利用Transformer來fine tune
 
 
-是的，這三種 Transformer 架構 (**Encoder-only、Decoder-only、Encoder-Decoder**) 都可以進行 **Fine-tuning**，但方法與應用場景會有所不同。以下是如何 Fine-tune 這三種架構的方式：
+三種 Transformer 架構 (**Encoder-only、Decoder-only、Encoder-Decoder**) 都可以進行 **Fine-tuning**，但方法與應用場景會有所不同。以下是如何 Fine-tune 這三種架構的方式：
 
-1️⃣ E**ncoder-only (BERT, RoBERTa, ALBERT)
+1️⃣ Encoder-only (BERT, RoBERTa, ALBERT)
 
-📌 適**用於：文本分類、情感分析、NER、語義搜尋
+📌 適用於：文本分類、情感分析、NER、語義搜尋
 
 • **Fine-tuning 方法**：
 
@@ -115,9 +115,9 @@ trainer.train()
 
 • **難度**：相對容易，因為 BERT 已經有良好的語義理解能力。
 
-2️⃣ D**ecoder-only (GPT-2, GPT-3, LLaMA)
+2️⃣ Decoder-only (GPT-2, GPT-3, LLaMA)
 
-📌 適**用於：聊天機器人、文本生成、程式碼補全
+📌 適用於：聊天機器人、文本生成、程式碼補全
 
 • **Fine-tuning 方法**：
 
@@ -145,9 +145,9 @@ trainer.train()
 
 • 通常需要較大的數據集來避免過擬合。
 
-3️⃣ E**ncoder-Decoder (T5, BART, mT5)
+3️⃣ Encoder-Decoder (T5, BART, mT5)
 
-📌 適**用於：翻譯、摘要、問答
+📌 適用於：翻譯、摘要、問答
 
 • **Fine-tuning 方法**：
 
@@ -193,4 +193,3 @@ trainer.train()
 
 ✅ 如果你的應用是 **機器翻譯或摘要**，Fine-tune **T5/BART**，但需要配對的輸入輸出數據。
 
-如果你有更具體的 Fine-tuning 需求（例如使用 Hugging Face 或 Google Colab 進行訓練），可以再詢問我，我可以提供更詳細的教學！ 🚀
