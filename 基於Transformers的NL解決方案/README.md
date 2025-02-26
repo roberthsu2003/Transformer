@@ -1,4 +1,19 @@
-# 動態調整訓練時記憶體使用
+# 基於Transformers的NL解決方案
+
+| 步驟 | 相關Class |
+|:--|:--|
+| 輸入相關模組 | General |
+| 載入資料集 | Datasets |
+| 資料集劃分 | Datasets |
+| 分詞資料集 | Tokenizer + Datasets |
+| 建立模型 | Model |
+| 建立評估函數 | Evaluate |
+| 建立訓練參數 | TrainingArguments |
+| 建立訓練器 | Trainer + Data Collator |
+| 模型訓練,評估,預測 | Trainer |
+| 模型預測(單1條) | Pipline |
+| 模型和分詞器上傳 | login,huggingface_hub |
+| 下載,預測 | Pipline |
 
 
 **載入數據集資料**
