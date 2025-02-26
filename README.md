@@ -11,7 +11,8 @@
 ### 1.6 [Evaluate評估](./evaluate/)
 - [自訂評估function的說明](./evaluate/自訂評估function的說明.md)
 ### 1.7 [trainer訓練器](./trainer/)
-### 1.8 [動態調整訓練時記憶體使用](./動態調整訓練時記憶體使用)
+### 1.8 [基於Transformers的NL解決方案](./基於Transformers的NL解決方案)
+### 1.9 [動態調整訓練時記憶體使用](./動態調整訓練時記憶體使用)
 
 ## 2. 依任務類別的實作
 ### [自然語言Transformer的種類](./選擇適合的預訓練模型)
