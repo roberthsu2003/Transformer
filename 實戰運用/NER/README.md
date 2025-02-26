@@ -83,3 +83,78 @@ Transformer 的 **命名實體識別 (Named Entity Recognition, NER)** 任務應
 • NER 識別：「亞馬遜 (公司)」、「傑夫·貝佐斯 (人名)」。
 
 這些應用都能利用 Transformer 模型（如 **BERT、RoBERTa、XLNet、GPT、T5** 等）進行命名實體識別，並進一步提升自然語言處理 (NLP) 任務的準確度。
+
+## 建議的NER的basemodel
+
+在 Transformer 架構的命名實體識別（NER）任務中，選擇一個適合繁體中文的 Base Model 取決於幾個因素，例如模型大小、訓練語料、效能與可用資源。以下是幾個適合的選擇：
+
+**1. 官方提供的 BERT 系列**
+
+• **[bert-base-chinese](https://huggingface.co/bert-base-chinese)**
+
+• 這是 Google 提供的 BERT 中文模型，基於簡繁混合語料訓練。
+
+• 適合基本的 NER 任務，但需要額外的繁體語料微調。
+
+• **[hfl/chinese-bert-wwm](https://huggingface.co/hfl/chinese-bert-wwm)**
+
+• 由哈工大（HFL）訓練的 Whole Word Masking（WWM）版本，在 NER 任務上通常比 bert-base-chinese 表現更好。
+
+• 仍然是簡繁混合語料。
+
+**2. 繁體中文優化的模型**
+
+• **[ckiplab/bert-base-chinese-ner](https://huggingface.co/ckiplab/bert-base-chinese-ner)**
+
+• 由台灣的 **CKIP Lab** 訓練，專門針對 NER 任務。
+
+• 訓練語料包含繁體中文，適合直接用於 NER。
+
+• **[ckiplab/albert-tiny-chinese](https://huggingface.co/ckiplab/albert-tiny-chinese)**
+
+• 輕量級 ALBERT 模型，適合計算資源受限的情境。
+
+• **[uer/chinese_roberta_L-12_H-768](https://huggingface.co/uer/chinese_roberta_L-12_H-768)**
+
+• 使用大量語料訓練，效能優於標準 BERT。
+
+**3. 如果你想要更強大的模型**
+
+• **[hfl/chinese-roberta-wwm-ext](https://huggingface.co/hfl/chinese-roberta-wwm-ext)**
+
+• 在更大的中文語料上訓練，適合高準確度的 NER。
+
+• **[idea-ccnl/Erlangshen-Roberta-330M-Sentiment](https://huggingface.co/IDEA-CCNL/Erlangshen-Roberta-330M-Sentiment)**
+
+• 這是較大的 Roberta 模型，能夠捕捉更細膩的語義特徵。
+
+**選擇建議**
+
+
+1. **如果你希望模型直接能用在繁體中文的 NER 任務**
+
+→ **推薦** **[ckiplab/bert-base-chinese-ner](https://huggingface.co/ckiplab/bert-base-chinese-ner)**
+
+
+1. **如果你願意微調並希望模型泛用性更高**
+
+→ **推薦 hfl/chinese-bert-wwm 或 hfl/chinese-roberta-wwm-ext**
+
+
+1. **如果你在計算資源受限的環境（例如 Raspberry Pi 或 Colab 免費版）**
+
+→ **推薦 ckiplab/albert-tiny-chinese**
+
+這些模型都可以透過 Hugging Face 的 transformers 套件直接加載，例如：
+
+```other
+from transformers import AutoModelForTokenClassification, AutoTokenizer
+
+model_name = "ckiplab/bert-base-chinese-ner"  # 你可以改成你選擇的模型
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForTokenClassification.from_pretrained(model_name)
+```
+
+
+如果你有更特殊的 NER 需求，例如醫療、法律等特定領域，可能需要考慮微調或尋找領域特化的模型。
+
