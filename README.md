@@ -15,10 +15,14 @@
 ### 1.9 [動態調整訓練時記憶體使用](./動態調整訓練時記憶體使用)
 
 ## 2. 依任務類別的實作
-### [自然語言Transformer的種類](./選擇適合的預訓練模型)
+### [自然語言Transformer的種類](./實戰運用/選擇適合的預訓練模型)
 - 選擇適合的預訓練模型
 
-### [文本分類(Text Classification)](./text_classification)
+### [文本分類(Text Classification)](./實戰運用/text_classification)
+
+### 命名實體識別(Named Entity Recognition,NER)
+- [實務應用說明](./實戰運用/NER)
+- 實作
 
 ## 3. HuggingFace上可以使用的資源
 ### [專門為繁體中文優化過的開源模型](./source_for_tw)
