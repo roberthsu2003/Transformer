@@ -14,5 +14,5 @@ nltk
 rouge
 ipywidgets
 torch
-datasets
 umap
+seqeval
