@@ -492,6 +492,226 @@ trainer = Trainer(
 trainer.train()
 ```
 
+### 8. 評估模型
+
+```python
+trainer.evaluate(eval_dataset=tokenized_datasets['test'])
+
+#==output==
+{'eval_loss': 0.02187521383166313,
+ 'eval_f1': 0.9508438253415484,
+ 'eval_runtime': 36.0562,
+ 'eval_samples_per_second': 128.605,
+ 'eval_steps_per_second': 1.026,
+ 'epoch': 3.0}
+```
+
+### 9. 上傳模型和所有評估資料
+
+```python
+from huggingface_hub import login
+login()
+```
+
+```python
+trainer.push_to_hub("roberthsu2003") #由於有設./checkpoints,所以自動產生checkpoints的repo,也會自動上傳評估至repo
+#同時要上傳tokenizer
+model_name = "roberthsu2003/models_for_ner"
+tokenizer.push_to_hub(model_name)
+```
+
+### 10. 使用訓練中的模型
+
+- `LABEL_1`,不是我們要使用的
+
+```python
+ner_pipe = pipeline("token-classification", model=model, tokenizer=tokenizer, aggregation_strategy="simple")
+ner_pipe("徐國堂在台北上班")
+
+#==output==
+[{'entity_group': 'LABEL_1',
+  'score': np.float32(0.99952245),
+  'word': '徐',
+  'start': 0,
+  'end': 1},
+ {'entity_group': 'LABEL_2',
+  'score': np.float32(0.9994726),
+  'word': '國 堂',
+  'start': 1,
+  'end': 3},
+ {'entity_group': 'LABEL_0',
+  'score': np.float32(0.99968326),
+  'word': '在',
+  'start': 3,
+  'end': 4},
+ {'entity_group': 'LABEL_5',
+  'score': np.float32(0.99884737),
+  'word': '台',
+  'start': 4,
+  'end': 5},
+ {'entity_group': 'LABEL_6',
+  'score': np.float32(0.99812204),
+  'word': '北',
+  'start': 5,
+  'end': 6},
+ {'entity_group': 'LABEL_0',
+  'score': np.float32(0.99980557),
+  'word': '上 班',
+  'start': 6,
+  'end': 8}]
+```
+
+```python
+print(model.config.id2label)
+
+#==output==
+{0: 'LABEL_0', 1: 'LABEL_1', 2: 'LABEL_2', 3: 'LABEL_3', 4: 'LABEL_4', 5: 'LABEL_5', 6: 'LABEL_6'}
+```
+
+**修改model.config.id2label**
+
+```python
+label_list = ['O', 'B-PER', 'I-PER', 'B-ORG', 'I-ORG', 'B-LOC', 'I-LOC']
+model.config.id2label = {idx: label for idx, label in enumerate(label_list)}
+model.config.id2label
+
+#==output==
+{0: 'O',
+ 1: 'B-PER',
+ 2: 'I-PER',
+ 3: 'B-ORG',
+ 4: 'I-ORG',
+ 5: 'B-LOC',
+ 6: 'I-LOC'}
+```
+
+### 重新上傳(只上傳模型,沒有上傳評估資料和README.md)
+
+```python
+from huggingface_hub import login
+login()
+```
+
+```
+model.push_to_hub(model_name)
+```
+
+### 使用HuggingFace上的模型(pipeline方式)
+
+- pipeline()->使用NER的官方說明
+
+https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.TokenClassificationPipeline
+
+
+```python
+ner_pipe = pipeline("token-classification", model='roberthsu2003/models_for_ner',aggregation_strategy="simple")
+inputs = "徐國堂在台北上班" 
+res = ner_pipe(inputs)
+
+#解決文字中間有空格的問題
+ner_result = {}
+for r in res:
+  if r["entity_group"] not in ner_datasets:
+    ner_result[r['entity_group']] = []
+  ner_result[r['entity_group']].append(inputs[r['start']:r['end']])
+ner_result
+
+#==output==
+{'PER': ['徐國堂'], 'LOC': ['台北']}
+```
+
+
+### 使用HuggingFace上的模型(model,tokenizer方式)
+
+```python
+#使用model,tokenizer的使用方法
+from transformers import AutoModelForTokenClassification, AutoTokenizer
+import numpy as np
+
+# Load the pre-trained model and tokenizer
+model = AutoModelForTokenClassification.from_pretrained('roberthsu2003/models_for_ner')
+tokenizer = AutoTokenizer.from_pretrained('roberthsu2003/models_for_ner')
+
+# The label mapping (you might need to adjust this based on your training)
+label_list = ['O', 'B-PER', 'I-PER', 'B-ORG', 'I-ORG', 'B-LOC', 'I-LOC']
+
+def predict_ner(text):
+    """Predicts NER tags for a given text using the loaded model."""
+    # Encode the text
+    inputs = tokenizer(text, return_tensors='pt', truncation=True, padding=True)
+    
+    # Get model predictions
+    outputs = model(**inputs)
+    predictions = np.argmax(outputs.logits.detach().numpy(), axis=-1)
+    
+    # Get the word IDs from the encoded inputs
+    # This is the key change - word_ids() is a method on the encoding result, not the tokenizer itself
+    word_ids = inputs.word_ids(batch_index=0)
+    
+    pred_tags = []
+    for word_id, pred in zip(word_ids, predictions[0]):
+        if word_id is None:
+            continue  # Skip special tokens
+        pred_tags.append(label_list[pred])
+
+    return pred_tags
+
+#To get the entities, you'll need to group consecutive non-O tags:
+
+def get_entities(tags):
+    """Groups consecutive NER tags to extract entities."""
+    entities = []
+    start_index = -1
+    current_entity_type = None
+    for i, tag in enumerate(tags):
+        if tag != 'O':
+            if start_index == -1:
+                start_index = i
+                current_entity_type = tag[2:] # Extract entity type (e.g., PER, LOC, ORG)
+        else: #tag == 'O'
+            if start_index != -1:
+                entities.append((start_index, i, current_entity_type))
+                start_index = -1
+                current_entity_type = None
+    if start_index != -1:
+        entities.append((start_index, len(tags), current_entity_type))
+    return entities
+
+# Example usage:
+text = "徐國堂在台北上班"
+ner_tags = predict_ner(text)
+print(f"Text: {text}")
+#==output==
+#Text: 徐國堂在台北上班
+print(f"NER Tags: {ner_tags}")
+#===output==
+#NER Tags: ['B-PER', 'I-PER', 'I-PER', 'O', 'B-LOC', 'I-LOC', 'O', 'O']
+
+
+entities = get_entities(ner_tags)
+word_tokens = tokenizer.tokenize(text)  # Tokenize to get individual words
+print(f"Entities:")
+for start, end, entity_type in entities:
+    entity_text = "".join(word_tokens[start:end])
+    print(f"- {entity_text}: {entity_type}")
+
+#==output==
+#Entities:
+#- 徐國堂: PER
+#- 台北: LOC
+
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
