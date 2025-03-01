@@ -375,6 +375,125 @@ DatasetDict({
 [-100, 0, 0, 0, 0, 0, 0, 0, 5, 6, 0, 5, 6, 0, 0, 0, 0, 0, 0, -100]
 ```
 
+### 4. 建立模型
+
+```python
+#label_list
+#['O', 'B-PER', 'I-PER', 'B-ORG', 'I-ORG', 'B-LOC', 'I-LOC']
+model = AutoModelForTokenClassification.from_pretrained("google-bert/bert-base-chinese",num_labels=len(label_list)) #預設是2個,現在是7個
+```
+
+### 5. 建立評估function
+
+```python
+seqeval = evaluate.load('seqeval')
+seqeval #查看所需要的說明書
+
+#==output==
+EvaluationModule(name: "seqeval", module_type: "metric", features: {'predictions': Sequence(feature=Value(dtype='string', id='label'), length=-1, id='sequence'), 'references': Sequence(feature=Value(dtype='string', id='label'), length=-1, id='sequence')}, usage: """
+Produces labelling scores along with its sufficient statistics
+from a source against one or more references.
+
+Args:
+    predictions: List of List of predicted labels (Estimated targets as returned by a tagger)
+    references: List of List of reference labels (Ground truth (correct) target values)
+    suffix: True if the IOB prefix is after type, False otherwise. default: False
+    scheme: Specify target tagging scheme. Should be one of ["IOB1", "IOB2", "IOE1", "IOE2", "IOBES", "BILOU"].
+        default: None
+    mode: Whether to count correct entity labels with incorrect I/B tags as true positives or not.
+        If you want to only count exact matches, pass mode="strict". default: None.
+    sample_weight: Array-like of shape (n_samples,), weights for individual samples. default: None
+    zero_division: Which value to substitute as a metric value when encountering zero division. Should be on of 0, 1,
+        "warn". "warn" acts as 0, but the warning is raised.
+
+Returns:
+    'scores': dict. Summary of the scores for overall and per type
+        Overall:
+            'accuracy': accuracy,
+            'precision': precision,
+            'recall': recall,
+            'f1': F1 score, also known as balanced F-score or F-measure,
+        Per type:
+            'precision': precision,
+            'recall': recall,
+            'f1': F1 score, also known as balanced F-score or F-measure
+Examples:
+
+    >>> predictions = [['O', 'O', 'B-MISC', 'I-MISC', 'I-MISC', 'I-MISC', 'O'], ['B-PER', 'I-PER', 'O']]
+    >>> references = [['O', 'O', 'O', 'B-MISC', 'I-MISC', 'I-MISC', 'O'], ['B-PER', 'I-PER', 'O']]
+    >>> seqeval = evaluate.load("seqeval")
+    >>> results = seqeval.compute(predictions=predictions, references=references)
+    >>> print(list(results.keys()))
+    ['MISC', 'PER', 'overall_precision', 'overall_recall', 'overall_f1', 'overall_accuracy']
+    >>> print(results["overall_f1"])
+    0.5
+    >>> print(results["PER"]["f1"])
+    1.0
+""", stored examples: 0)
+```
+
+```python
+import numpy as np
+
+def eval_metric(pred):
+    predictions, labels = pred
+    #print(predictions),評估時print()可以比較了解
+    predictions = np.argmax(predictions, axis=-1) #變為和label一樣的一維資料
+
+    #刪除-100
+    truth_predictions = [
+        [label_list[p] for p,l in zip(prediction, label) if p != -100]
+        for prediction, label in zip(predictions, labels)
+    ]
+
+    truth_labels = [
+        [label_list[l] for p,l in zip(prediction, label) if l != -100]
+        for prediction, label in zip(predictions, labels)
+    ]
+
+    result = seqeval.compute(predictions=truth_predictions, references=truth_labels, mode='strict', scheme='IOB2')
+    return{
+        "f1": result['overall_f1']
+    }
+```
+
+
+### 6. 配置訓練參數
+
+```python
+args = TrainingArguments(
+    output_dir = "models_for_ner",
+    per_device_eval_batch_size=64,
+    per_device_train_batch_size=128,
+    eval_strategy='epoch',
+    save_strategy='epoch',
+    metric_for_best_model='f1',
+    load_best_model_at_end=True,
+    logging_steps = 50,
+    num_train_epochs=3,
+    report_to='none'
+)
+```
+
+### 7. 建立訓練器
+
+```python
+trainer = Trainer(
+    model = model,
+    args = args,
+    train_dataset=tokenized_datasets['train'],
+    eval_dataset=tokenized_datasets['validation'],
+    compute_metrics=eval_metric,
+    data_collator=DataCollatorForTokenClassification(tokenizer=tokenizer)
+)
+```
+
+```python
+trainer.train()
+```
+
+
+
 
 
 
