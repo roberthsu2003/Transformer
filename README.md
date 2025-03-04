@@ -34,6 +34,10 @@
 
 - [資料集來源](./實戰運用/QuestionAnswering/資料集說明.md)
 
+- [截斷策略實作](./實戰運用/QuestionAnswering/載斷策略實作)
+
+
+
 
 
 
