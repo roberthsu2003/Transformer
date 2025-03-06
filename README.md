@@ -34,7 +34,9 @@
 
 - [資料集來源](./實戰運用/QuestionAnswering/資料集說明.md)
 
-- [截斷策略實作](./實戰運用/QuestionAnswering/載斷策略實作)
+- [截斷策略訓練實作](./實戰運用/QuestionAnswering/載斷策略實作)
+
+- [下載模型實作](./實戰運用/QuestionAnswering/載斷策略實作/下載模型實作.ipynb)
 
 
 
