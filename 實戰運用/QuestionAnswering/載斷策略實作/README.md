@@ -1,8 +1,10 @@
 # 基於截斷策略的機器閱讀理解任務實現
 - [實作的ipynb檔](./qa_train.ipynb)
-- [將將DRCD資料轉換為cmrc2018格式](./將DRCD資料轉換為cmrc2018格式.ipynb)
+- [將DRCD資料轉換為cmrc2018格式](./將DRCD資料轉換為cmrc2018格式.ipynb)
 - 使用模型(google-bert/bert-base-chinese)
 - 使用資料集(roberthsu2003/for_MRC_QA)
+
+## [教學說明ipynb檔](./教學說明.ipynb)
 
 ## Step1 載入相關套件
 
