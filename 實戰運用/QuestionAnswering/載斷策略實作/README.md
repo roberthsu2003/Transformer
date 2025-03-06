@@ -6,6 +6,9 @@
 
 ## Step1 載入相關套件
 
+- 使用AutoModelForQuestionAnswering
+- DefaultDataCollator
+
 ```python
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering, TrainingArguments, Trainer, DefaultDataCollator

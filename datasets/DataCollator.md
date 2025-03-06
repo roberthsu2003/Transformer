@@ -1,7 +1,57 @@
 ## DataCollator
-- DataCollator可以將Dataset資料分為批次訓練,而不是一次全部訓練
 
-**DataCollatorWithPadding**
+### DataCollator的功能是什麼？
+
+DataCollator是HuggingFace Transformers庫中的一個重要類別，它的主要功能是**在訓練或評估模型時，對資料樣本進行批次處理**。具體來說，DataCollator會將多個單獨的資料樣本組合成一個批次（batch），並對這些樣本進行必要的預處理，以確保批次中的所有樣本具有一致的形狀和結構，適合輸入到模型中進行訓練或推理。
+
+它的常見功能包括：
+- **填充（Padding）**：將較短的序列填充到相同長度，通常使用特定的填充標記（padding token）。
+- **截斷（Truncation）**：將過長的序列截斷到指定的最大長度。
+- **生成注意力掩碼（Attention Masks）**：標識序列中哪些部分是實際內容，哪些是填充部分，以便模型在處理時忽略填充區域。
+- **標籤處理**：根據任務需求，對標籤（labels）進行相應的處理，例如對齊輸入序列或轉換格式。
+
+簡單來說，DataCollator是一個資料處理的「幫手」，它幫助開發者將原始資料轉換成模型可以直接使用的格式，從而簡化訓練流程。
+
+---
+
+### 為何會有不同的DataCollator？
+
+之所以有不同的DataCollator，是因為**不同的模型和任務對資料處理的需求不同**。HuggingFace提供了多種專門的DataCollator，以適應各種場景。以下是一些例子來說明原因：
+
+1. **語言模型（Language Models）**  
+   對於像BERT或GPT這樣的語言模型，輸入序列需要填充和截斷，並生成注意力掩碼。某些語言模型（如GPT）還需要隨機掩碼（masking）來訓練預測能力，因此需要專門的處理邏輯。
+
+2. **序列到序列模型（Sequence-to-Sequence Models）**  
+   在機器翻譯或摘要生成等任務中，除了處理輸入序列，還需要對目標序列（target sequences）進行填充和截斷，並生成對應的標籤。這與單純的語言模型需求不同。
+
+3. **問答模型（Question Answering Models）**  
+   問答任務需要處理問題和上下文的配對，並生成答案的起始和結束位置標籤，這要求DataCollator能夠處理這種特殊的結構。
+
+4. **標記分類（Token Classification）**  
+   在命名實體識別（NER）等任務中，每個輸入標記（token）都有對應的標籤。DataCollator需要確保標籤與填充後的序列正確對齊。
+
+5. **多標籤分類（Multi-label Classification）**  
+   在多標籤任務中，每個樣本可能有多個類別，標籤需要轉換成特定的格式（如二進制向量），這與單標籤分類不同。
+
+---
+
+### 常見的DataCollator類型
+
+HuggingFace根據這些需求提供了多種DataCollator，以下是一些常見的例子：
+- **DataCollatorWithPadding**：最基本的類型，負責填充和截斷，適用於大多數語言模型和分類任務。
+- **DataCollatorForLanguageModeling**：專為語言模型設計，支援隨機掩碼，適合自迴歸模型（如GPT-2）。
+- **DataCollatorForSeq2Seq**：用於序列到序列任務，處理輸入和目標序列，適用於翻譯或摘要生成。
+- **DataCollatorForTokenClassification**：用於標記分類任務，確保標籤與序列對齊，適合NER。
+- **DataCollatorForQuestionAnswering**：專為問答任務設計，生成起始和結束位置標籤。
+
+---
+
+### 總結
+
+DataCollator的功能是**將資料樣本批次化並進行預處理**，以滿足模型輸入的需求。而不同的DataCollator存在是因為**不同的任務和模型需要特定的資料處理方式**。這種靈活性讓開發者可以根據自己的需求選擇合適的DataCollator，從而提高資料準備的效率並簡化模型訓練過程。
+
+### 實作,使用DataCollatorWithPadding
+
 - 每一批次自動產生對應的padding
 - 所以每一批次會依據內容,產生不同的批次
 
