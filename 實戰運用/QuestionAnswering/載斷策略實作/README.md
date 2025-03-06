@@ -4,7 +4,7 @@
 - 使用模型(google-bert/bert-base-chinese)
 - 使用資料集(roberthsu2003/for_MRC_QA)
 
-## [教學說明ipynb檔](./教學說明.ipynb)
+## [教學說明ipynb檔](./教學用.ipynb)
 
 ## Step1 載入相關套件
 
