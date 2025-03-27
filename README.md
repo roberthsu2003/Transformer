@@ -36,6 +36,8 @@
 
 - [截斷策略訓練實作](./實戰運用/QuestionAnswering/載斷策略實作)
 
+- [滑動視窗策略訓練實作](./實戰運用/QuestionAnswering/滑動策略實作)
+
 - [下載模型實作](./實戰運用/QuestionAnswering/載斷策略實作/下載模型實作.ipynb)
 
 
