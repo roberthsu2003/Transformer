@@ -34,6 +34,8 @@
 
 - [資料集來源](./實戰運用/QuestionAnswering/資料集說明.md)
 
+	- [將DRCD資料轉換為cmrc2018格式實作ipynb](./實戰運用/QuestionAnswering/DRCD資料集轉換為CMRC2018/將DRCD資料轉換為cmrc2018格式.ipynb) 
+
 - [截斷策略訓練實作](./實戰運用/QuestionAnswering/載斷策略實作)
 
 - [滑動視窗策略訓練實作](./實戰運用/QuestionAnswering/滑動策略實作)
