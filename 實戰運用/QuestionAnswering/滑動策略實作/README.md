@@ -1,11 +1,12 @@
 # 基於滑動視窗策略的機器閱讀理解任務實現
 > [!TIP]
+> [`滑動策略程式碼邏輯`說明的jam檔案](./白板)
 > [教學用的說明ipynb檔](./教學用.ipynb)  
 > [截斷實作的ipynb檔](./qa_train.ipynb)  
 > [將DRCD資料轉換為cmrc2018格式](./將DRCD資料轉換為cmrc2018格式.ipynb)  
 > 使用模型(google-bert/bert-base-chinese)  
 > 範例使用資料集(roberthsu2003/for_MRC_QA)  
-> [`截斷策略程式碼邏輯`說明的jam檔案](./白板) 
+ 
 
 ## 評估指標:
 - 精准匹配度(Exact Match,EM):計算預測結果與標準答案是否完全匹配。
@@ -40,7 +41,7 @@ F1的公式是:
 - offset_mapping
 
 ### 3. Content過長的解決
-- 策略:滑動視窗策略,損失較小,較為複雜
+- 滑動視窗策略,損失較小,較為複雜
 
 
 ## 策略: 滑動視窗策略的實作
