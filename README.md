@@ -32,9 +32,16 @@
 
 - [機器閱讀理解應用情境](./實戰運用/QuestionAnswering/機器閱讀理解應用情境.md)
 
-- [資料集來源](./實戰運用/QuestionAnswering/資料集說明.md)
+- [資料集](./實戰運用/QuestionAnswering/資料集說明.md)
 
-	- [將DRCD資料轉換為cmrc2018格式實作ipynb](./實戰運用/QuestionAnswering/DRCD資料集轉換為CMRC2018/將DRCD資料轉換為cmrc2018格式.ipynb) 
+	- [下載台達研究院QA專用資料資](https://github.com/DRCKnowledgeTeam/DRCD)  
+		1. DRCD_dev.json  
+		2. DRCD_test.json  
+		3. DRCD_training.json
+
+	- [將DRCD資料轉換為cmrc2018格式實作ipynb](./實戰運用/QuestionAnswering/DRCD資料集轉換為CMRC2018/將DRCD資料轉換為cmrc2018格式.ipynb)  
+		1. 轉換為CMRC2018格式
+		2. 上傳至HuggingFace DataSet
 
 - [截斷策略訓練實作](./實戰運用/QuestionAnswering/載斷策略實作)
 
