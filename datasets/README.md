@@ -16,9 +16,11 @@
 - 直接載入文件作為DataSets
 - 載入資料夾內全部文件作為DataSets
 - pandas,list資料轉為DataSets
+
+## [上傳Datasets至HuggingFace DataSet](./上傳資料集至huggingFace.ipynb)
 ## [Dataset with DataCollator](./DataCollator.md)
 
-## [實作-使用Huggingface Dataset,取代pytorch Dataset](./pretrained.md)
+## [train實作-使用Huggingface Dataset,取代pytorch Dataset](./pretrained.md)
 
 - [提供繁體中文訓練集_AWeirdDev](https://huggingface.co/AWeirdDev)
 
