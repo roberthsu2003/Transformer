@@ -6,6 +6,7 @@
 > [滑動視窗實作的ipynb檔](./qa_train.ipynb)  
 > 範例使用資料集(roberthsu2003/for_MRC_QA)   
 > 使用模型(google-bert/bert-base-chinese) 
+> [下載模型預測](./下載模型實作.ipynb)
  
  
 
