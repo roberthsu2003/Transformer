@@ -17,8 +17,8 @@
 ## 2. 依任務類別的微調(Fine Tune)
 ### [自然語言Transformer的種類](./實戰運用/選擇適合的預訓練模型)
 - 選擇適合的預訓練模型
-
-### [文本分類(Text Classification)](./實戰運用/text_classification)
+### [文本情感分類(Text Classification)](./實戰運用/情感分析)
+### [文本分類(Text Classification)_待處理](./實戰運用/text_classification)
 
 ### 命名實體識別(Named Entity Recognition,NER)
 - [實務應用說明](./實戰運用/NER/實務運用說明.md)

@@ -6,7 +6,8 @@
 > [!TIP]
 > [train實作](./trainer.ipynb)  
 > [訓練完成的模型](https://huggingface.co/roberthsu2003/for_classification)  
-> 資料集來源: roberthsu2003/data_for_classification  
+> [下載模型實作](./下載模型實作.ipynb)    
+> 資料集來源: roberthsu2003/data_for_classification    
 > 預訓練模型: google-bert/bert-base-chinese
 
 ## Trainer的使用限制
