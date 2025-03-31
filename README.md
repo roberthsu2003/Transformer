@@ -49,6 +49,8 @@
 
 - [下載截斷策略模型實作](./實戰運用/QuestionAnswering/載斷策略實作/下載模型實作.ipynb)
 
+### 多項選擇(multiple-choise)
+
 
 
 
