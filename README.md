@@ -63,7 +63,7 @@ google-bert/bert-base-chinese
 
 - [說明ipynb](./實戰運用/多項選擇/demo1.ipynb)
 
-- [訓練模型](./實戰運用/多項選擇/learn.ipynb)
+- [訓練模型實作ipynb](./實戰運用/多項選擇/learn.ipynb)
 
 
 
