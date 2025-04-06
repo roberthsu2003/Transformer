@@ -24,9 +24,9 @@
 
 ### [機器閱讀理解(Question Answering)](./實戰運用/QuestionAnswering)
 
-### [多項選擇(multiple-choise)](./實戰運用/多項選擇)
+### [多項選擇(multiple-choice)](./實戰運用/多項選擇)
 
-### [文本相似模型(Sentence Similarity)](./實戰運用/文本相似)
+### [文本相似(Sentence Similarity)](./實戰運用/文本相似)
 
 
 
