@@ -67,6 +67,10 @@ google-bert/bert-base-chinese
 
 - [訓練模型實作ipynb](./實戰運用/多項選擇/learn.ipynb)
 
+### [文本相似模型(Sentence Similarity)](./實戰運用/文本相似)
+
+
+
 
 
  
