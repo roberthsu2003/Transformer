@@ -4,3 +4,13 @@
 	 
 ### [上傳訓練資料集](./資料集/README.ipynb)
 
+### 使用資料集:
+roberthsu2003/for_Sentence_Similarity
+
+### 使用訓練模型:
+google-bert/bert-base-chinese
+
+
+
+
+
