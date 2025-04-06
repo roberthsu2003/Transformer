@@ -25,30 +25,9 @@
 - [資料標識說明](./實戰運用/NER/資料標示說明.md)
 - [評估指標說明](./實戰運用/NER/評估指標說明.md)
 - [建議使用的基礎模型](./實戰運用/NER/建議使用的基礎模型.md)
-- [實作](./實戰運用/NER)
+- [實作](./實戰運用/NER/實作.md)
 
 ### [機器閱讀理解(Question Answering)](./實戰運用/QuestionAnswering)
-
-- [機器閱讀理解](./實戰運用/QuestionAnswering/什麼是機器閱讀理解.md)
-
-- [機器閱讀理解應用情境](./實戰運用/QuestionAnswering/機器閱讀理解應用情境.md)
-
-- [資料集](./實戰運用/QuestionAnswering/資料集說明.md)
-
-	- [下載台達研究院QA專用資料資](https://github.com/DRCKnowledgeTeam/DRCD)  
-		1. DRCD_dev.json  
-		2. DRCD_test.json  
-		3. DRCD_training.json
-
-	- [將DRCD資料轉換為cmrc2018格式實作ipynb](./實戰運用/QuestionAnswering/DRCD資料集轉換為CMRC2018/將DRCD資料轉換為cmrc2018格式.ipynb)  
-		1. 轉換為CMRC2018格式
-		2. 上傳至HuggingFace DataSet
-
-- [截斷策略訓練實作](./實戰運用/QuestionAnswering/載斷策略實作)
-
-- [滑動視窗策略訓練實作](./實戰運用/QuestionAnswering/滑動策略實作)
-
-- [下載截斷策略模型實作](./實戰運用/QuestionAnswering/載斷策略實作/下載模型實作.ipynb)
 
 ### [多項選擇(multiple-choise)](./實戰運用/多項選擇)
 
