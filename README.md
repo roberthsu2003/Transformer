@@ -20,12 +20,7 @@
 ### [文本情感分類(Text Classification)](./實戰運用/情感分析)
 ### [文本分類(Text Classification)_待處理](./實戰運用/text_classification)
 
-### 命名實體識別(Named Entity Recognition,NER)
-- [實務應用說明](./實戰運用/NER/實務運用說明.md)
-- [資料標識說明](./實戰運用/NER/資料標示說明.md)
-- [評估指標說明](./實戰運用/NER/評估指標說明.md)
-- [建議使用的基礎模型](./實戰運用/NER/建議使用的基礎模型.md)
-- [實作](./實戰運用/NER/實作.md)
+### [命名實體識別(Named Entity Recognition,NER)](./實戰運用/NER)
 
 ### [機器閱讀理解(Question Answering)](./實戰運用/QuestionAnswering)
 
