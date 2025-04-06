@@ -49,23 +49,7 @@
 
 - [下載截斷策略模型實作](./實戰運用/QuestionAnswering/載斷策略實作/下載模型實作.ipynb)
 
-### 多項選擇(multiple-choise)
-
-- [說明簡報jam](././實戰運用/多項選擇/說明jam)
-
-- [資料集的收集和轉換](./實戰運用/多項選擇/資料集轉換)
-
-- 資料集使用  
-roberthsu2003/for_Multiple_Choice  
-
-- base model  
-google-bert/bert-base-chinese 
-
-- [多項選擇的使用場景](./實戰運用/多項選擇/使用場景.md)
-
-- [說明ipynb](./實戰運用/多項選擇/demo1.ipynb)
-
-- [訓練模型實作ipynb](./實戰運用/多項選擇/learn.ipynb)
+### [多項選擇(multiple-choise)](./實戰運用/多項選擇)
 
 ### [文本相似模型(Sentence Similarity)](./實戰運用/文本相似)
 
