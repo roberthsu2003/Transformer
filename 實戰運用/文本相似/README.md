@@ -10,6 +10,10 @@ roberthsu2003/for_Sentence_Similarity
 ### 使用訓練模型:
 google-bert/bert-base-chinese
 
+### [文本相似1-非最終版](explain_說明1.ipynb)
+### [文本相似2-非最終版](explain_說明2.ipynb)
+### [文本相似3-完整版](explain_說明3.ipynb)
+
 
 
 
