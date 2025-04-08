@@ -28,6 +28,15 @@
 
 ### [文本相似(Sentence Similarity)](./實戰運用/文本相似)
 
+## 3. 使用unsloth
+
+![github_官網](https://github.com/unslothai/unsloth)
+
+### LLama3.2(1B_and_3B)-Conversational
+- [使用資料集](./unsloth/data1.ipynb)
+- [訓練llama3.2_3B_instruct](./demo1.ipynb)
+
+
 
 
 
