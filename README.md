@@ -34,7 +34,7 @@
 
 ### LLama3.2(1B_and_3B)-Conversational
 - [使用資料集](./unsloth/data1.ipynb)
-- [訓練llama3.2_3B_instruct](./demo1.ipynb)
+- [訓練llama3.2_3B_instruct](./unsloth/demo1.ipynb)
 
 
 
