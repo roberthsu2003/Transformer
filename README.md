@@ -30,7 +30,7 @@
 
 ## 3. 使用unsloth
 
-![github_官網](https://github.com/unslothai/unsloth)
+[github_官網](https://github.com/unslothai/unsloth)
 
 ### LLama3.2(1B_and_3B)-Conversational
 - [使用資料集](./unsloth/data1.ipynb)  
