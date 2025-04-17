@@ -28,9 +28,11 @@
 
 ### [文本相似(Sentence Similarity)](./實戰運用/文本相似)
 
+### [LLama3.2(1B_and_3B)-Conversational](https://www.datacamp.com/tutorial/fine-tuning-llama-3-2?utm_source=chatgpt.com)
+
 ## 3. 使用unsloth
 
-![github_官網](https://github.com/unslothai/unsloth)
+[github_官網](https://github.com/unslothai/unsloth)
 
 ### LLama3.2(1B_and_3B)-Conversational
 - [使用資料集](./unsloth/data1.ipynb)  
