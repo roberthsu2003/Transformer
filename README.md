@@ -28,6 +28,8 @@
 
 ### [文本相似(Sentence Similarity)](./實戰運用/文本相似)
 
+### [檢索機器人](./實戰運用/檢索機器人_RAG/)
+
 ### [LLama3.2(1B_and_3B)-Conversational](https://www.datacamp.com/tutorial/fine-tuning-llama-3-2?utm_source=chatgpt.com)
 
 ## 3. 使用unsloth
